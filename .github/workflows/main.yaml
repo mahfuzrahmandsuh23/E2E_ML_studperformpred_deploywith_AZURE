@@ -1,4 +1,4 @@
-name: Build and Deploy to Azure Web App - mldeployaz
+name: Build and Deploy to Azure Web App - mltestaz25
 
 on:
   push:
@@ -35,6 +35,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Check resource group value
+        run: echo "Using Resource Group: ${{ secrets.RESOURCE_GROUP }}"
 
       - name: Link ACR to Azure Web App using CLI
         run: |
