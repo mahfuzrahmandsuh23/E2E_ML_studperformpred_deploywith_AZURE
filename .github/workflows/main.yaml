@@ -37,7 +37,8 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Check resource group value
-        run: echo "Using Resource Group: ${{ secrets.RESOURCE_GROUP }}"
+        run: |
+          echo "Using Resource Group: ${{ secrets.RESOURCE_GROUP }}"
 
       - name: Link ACR to Azure Web App using CLI
         run: |
