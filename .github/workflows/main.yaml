@@ -20,7 +20,7 @@ jobs:
       - name: Log in to Azure Container Registry
         uses: docker/login-action@v2
         with:
-          registry: mldeployaz.azurecr.io
+          registry: mltestaz25.azurecr.io
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
@@ -29,11 +29,11 @@ jobs:
         with:
           context: .
           push: true
-          tags: mldeployaz.azurecr.io/mltestaz:latest
+          tags: mltestaz25.azurecr.io/mltestimg:latest
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: mldeployaz
+          app-name: mltestaz25
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: mldeployaz.azurecr.io/mltestaz:latest
+          images: mltestaz25.azurecr.io/mltestimg:latest

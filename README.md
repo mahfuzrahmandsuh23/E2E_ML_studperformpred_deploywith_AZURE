@@ -3,11 +3,11 @@
 
 ## Run from terminal:
 
-docker build -t mldeployaz.azurecr.io/mltestaz:latest .
+docker build -t mltestaz25.azurecr.io/mltestimg:latest .
 
-docker login mldeployaz.azurecr.io
+docker login mltestaz25.azurecr.io
 
-docker push mldeployaz.azurecr.io/mltestaz:latest
+docker push mltestaz25.azurecr.io/mltestimg:latest
 
 
 ## Deployment Steps:
