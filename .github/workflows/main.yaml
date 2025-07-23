@@ -31,9 +31,23 @@ jobs:
           push: true
           tags: mltestaz25.azurecr.io/mltestimg:latest
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
+      - name: Azure CLI login
+        uses: azure/login@v1
         with:
-          app-name: mltestaz25
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: mltestaz25.azurecr.io/mltestimg:latest
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Link ACR to Azure Web App using CLI
+        run: |
+          az webapp config container set \
+            --name mltestaz25 \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --docker-custom-image-name mltestaz25.azurecr.io/mltestimg:latest \
+            --docker-registry-server-url https://mltestaz25.azurecr.io \
+            --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
+            --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
+
+      - name: Restart Web App (optional but recommended)
+        run: |
+          az webapp restart \
+            --name mltestaz25 \
+            --resource-group ${{ secrets.RESOURCE_GROUP }}
