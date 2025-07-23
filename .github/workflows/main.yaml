@@ -41,16 +41,18 @@ jobs:
 
       - name: Link ACR to Azure Web App using CLI
         run: |
+          echo "Linking ACR to Web App..."
           az webapp config container set \
             --name mltestaz25 \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --resource-group "${{ secrets.RESOURCE_GROUP }}" \
             --docker-custom-image-name mltestaz25.azurecr.io/mltestimg:latest \
             --docker-registry-server-url https://mltestaz25.azurecr.io \
-            --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
-            --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
+            --docker-registry-server-user "${{ secrets.ACR_USERNAME }}" \
+            --docker-registry-server-password "${{ secrets.ACR_PASSWORD }}"
 
       - name: Restart Web App (optional but recommended)
         run: |
+          echo "Restarting Web App..."
           az webapp restart \
             --name mltestaz25 \
-            --resource-group ${{ secrets.RESOURCE_GROUP }}
+            --resource-group "${{ secrets.RESOURCE_GROUP }}"
